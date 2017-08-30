@@ -28,6 +28,7 @@
   "dependencies": {
     "rfb2": "0.0.8",
     "commander": "~2.0.0",
-    "co-prompt": "~1.0.0"
+    "co-prompt": "~1.0.0",
+    "moment": "^2.10.3"
   }
 }
