@@ -38,7 +38,7 @@ r.on('connect', () => {
 
   var screen = new Buffer(r.width * r.height * 3);
 
-  var filename = host.replace(/[^0-9]/g, '_') + '-' + moment().format('YYYYMMDD-HHmmss') + '.mp4';
+  var filename = host.replace(/[^0-9]/g, '_') + '-' + moment().format('YYYYMMDD-HHmmss') + '-%03d.mp4';
 
   var out = spawn('ffmpeg', [
     '-loglevel', 'panic',
@@ -51,6 +51,10 @@ r.on('connect', () => {
     '-preset', 'slow',
     '-crf', 22,
     '-c:a', 'copy',
+    '-f', 'segment',
+    '-segment_atclocktime', 1,
+    '-segment_time', 1800, // 30 minutes segments
+    '-reset_timestamps', 1,
     path.join(dest, filename)
   ]);
 
@@ -112,4 +116,3 @@ r.on('connect', () => {
     }
   });
 });
-
